@@ -5,7 +5,7 @@ from textwrap import dedent
 
 from mcp_agent.app import MCPApp
 from mcp_agent.agents.agent import Agent
-from mcp_agent.workflows.llm.augmented_llm_openai import OpenAIAugmentedLLM
+from mcp_agent.workflows.llm.augmented_llm_google import GoogleAugmentedLLM
 from mcp_agent.workflows.llm.augmented_llm import RequestParams
 
 # Page config
@@ -71,9 +71,9 @@ async def setup_agent():
                 server_names=["playwright"],
             )
             
-            # Initialize agent and attach LLM
+            # Initialize agent and attach Gemini LLM
             await st.session_state.browser_agent.initialize()
-            st.session_state.llm = await st.session_state.browser_agent.attach_llm(OpenAIAugmentedLLM)
+            st.session_state.llm = await st.session_state.browser_agent.attach_llm(GoogleAugmentedLLM)
             
             # List tools once
             logger = st.session_state.mcp_agent_app.logger
@@ -88,8 +88,8 @@ async def setup_agent():
 
 # Main function to run agent
 async def run_mcp_agent(message):
-    if not os.getenv("OPENAI_API_KEY"):
-        return "Error: OpenAI API key not provided"
+    if not (os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")):
+        return "Error: Gemini API key not provided"
     
     try:
         # Make sure agent is initialized
@@ -149,7 +149,7 @@ if 'result' not in locals():
         """<div style='padding: 20px; background-color: #f0f2f6; border-radius: 10px;'>
         <h4>How to use this app:</h4>
         <ol>
-            <li>Enter your OpenAI API key in your mcp_agent.secrets.yaml file</li>
+            <li>Enter your Gemini API key in your mcp_agent.secrets.yaml file</li>
             <li>Type a command for the agent to navigate and interact with websites</li>
             <li>Click 'Run Command' to see results</li>
         </ol>

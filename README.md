@@ -21,7 +21,7 @@ A Streamlit application that allows you to browse and interact with websites usi
 - Node.js and npm (for Playwright)
   - This is a critical requirement! The app uses Playwright to control a headless browser
   - Download and install from [nodejs.org](https://nodejs.org/)
-- OpenAI or Anthropic API Key
+- Google Gemini API Key
 
 ### Installation
 
@@ -44,10 +44,11 @@ A Streamlit application that allows you to browse and interact with websites usi
    Both commands should return version numbers. If they don't, please install Node.js.
 
 4. Set up your API keys:
-   - Set OpenAI API Key as an environment variable:
+   - Set Gemini/Google API Key as an environment variable:
      ```bash
-     export OPENAI_API_KEY=your-openai-api-key
+     export GEMINI_API_KEY=your-gemini-api-key
      ```
+   - Or use `mcp_agent.secrets.yaml` with the `google.api_key` setting.
 
 
 ### Running the App
@@ -87,4 +88,4 @@ The application uses:
 - MCP (Model Context Protocol) to connect the LLM with tools
 - Playwright for browser automation
 - [MCP-Agent](https://github.com/lastmile-ai/mcp-agent/) for the Agentic Framework
-- OpenAI's models to interpret commands and generate responses
+- Google Gemini models to interpret commands and generate responses
